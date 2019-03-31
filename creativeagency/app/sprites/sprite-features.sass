@@ -1,0 +1,121 @@
+// SASS variables are information about icon's compiled state, stored under its original file name
+//
+// .icon-home
+//   width: $icon-home-width
+//
+// The large array-like variables contain all information about a single icon
+// $icon-home: x y offset_x offset_y width height total_width total_height image_path
+//
+// At the bottom of this section, we provide information about the spritesheet itself
+// $spritesheet: width height image $spritesheet-sprites
+$i-search-and-thou-shall-find-name: 'i-Search (and thou shall find)'
+$i-search-and-thou-shall-find-x: 0px
+$i-search-and-thou-shall-find-y: 0px
+$i-search-and-thou-shall-find-offset-x: 0px
+$i-search-and-thou-shall-find-offset-y: 0px
+$i-search-and-thou-shall-find-width: 35px
+$i-search-and-thou-shall-find-height: 34px
+$i-search-and-thou-shall-find-total-width: 69px
+$i-search-and-thou-shall-find-total-height: 285px
+$i-search-and-thou-shall-find-image: '../sprites/sprite-features.png'
+$i-search-and-thou-shall-find-: (0px, 0px, 0px, 0px, 35px, 34px, 69px, 285px, '../sprites/sprite-features.png', 'i-Search (and thou shall find)', )
+$i-simon-says-name: 'i-Simon says'
+$i-simon-says-x: 0px
+$i-simon-says-y: 54px
+$i-simon-says-offset-x: 0px
+$i-simon-says-offset-y: -54px
+$i-simon-says-width: 30px
+$i-simon-says-height: 34px
+$i-simon-says-total-width: 69px
+$i-simon-says-total-height: 285px
+$i-simon-says-image: '../sprites/sprite-features.png'
+$i-simon-says: (0px, 54px, 0px, -54px, 30px, 34px, 69px, 285px, '../sprites/sprite-features.png', 'i-Simon says', )
+$i-write-big-name: 'i-Write big'
+$i-write-big-x: 0px
+$i-write-big-y: 216px
+$i-write-big-offset-x: 0px
+$i-write-big-offset-y: -216px
+$i-write-big-width: 69px
+$i-write-big-height: 69px
+$i-write-big-total-width: 69px
+$i-write-big-total-height: 285px
+$i-write-big-image: '../sprites/sprite-features.png'
+$i-write-big: (0px, 216px, 0px, -216px, 69px, 69px, 69px, 285px, '../sprites/sprite-features.png', 'i-Write big', )
+$i-write-copy-name: 'i-Write copy'
+$i-write-copy-x: 0px
+$i-write-copy-y: 108px
+$i-write-copy-offset-x: 0px
+$i-write-copy-offset-y: -108px
+$i-write-copy-width: 35px
+$i-write-copy-height: 34px
+$i-write-copy-total-width: 69px
+$i-write-copy-total-height: 285px
+$i-write-copy-image: '../sprites/sprite-features.png'
+$i-write-copy: (0px, 108px, 0px, -108px, 35px, 34px, 69px, 285px, '../sprites/sprite-features.png', 'i-Write copy', )
+$i-write-name: 'i-Write'
+$i-write-x: 0px
+$i-write-y: 162px
+$i-write-offset-x: 0px
+$i-write-offset-y: -162px
+$i-write-width: 34px
+$i-write-height: 34px
+$i-write-total-width: 69px
+$i-write-total-height: 285px
+$i-write-image: '../sprites/sprite-features.png'
+$i-write: (0px, 162px, 0px, -162px, 34px, 34px, 69px, 285px, '../sprites/sprite-features.png', 'i-Write', )
+$spritesheet-width: 69px
+$spritesheet-height: 285px
+$spritesheet-image: '../sprites/sprite-features.png'
+$spritesheet-sprites: ($i-search-and-thou-shall-find-, $i-simon-says, $i-write-big, $i-write-copy, $i-write, )
+$spritesheet: (69px, 285px, '../sprites/sprite-features.png', $spritesheet-sprites, )
+
+// The provided mixins are intended to be used with the array-like variables
+//
+// .icon-home
+//   @include sprite-width($icon-home)
+//
+// .icon-email
+//   @include sprite($icon-email)
+//
+// Example usage in HTML:
+//   `display: block` sprite:
+//   <div class="icon-home"></div>
+//
+// To change `display` (e.g. `display: inline-block;`), we suggest using a common CSS class:
+//   // CSS
+//   .icon {
+//     display: inline-block;
+//   }
+//
+//   // HTML
+//   <i class="icon icon-home"></i>
+@mixin sprite-width($sprite)
+  width: nth($sprite, 5)
+
+@mixin sprite-height($sprite)
+  height: nth($sprite, 6)
+
+@mixin sprite-position($sprite)
+  $sprite-offset-x: nth($sprite, 3)
+  $sprite-offset-y: nth($sprite, 4)
+  background-position: $sprite-offset-x  $sprite-offset-y
+
+@mixin sprite-image($sprite)
+  $sprite-image: nth($sprite, 9)
+  background-image: url(#{$sprite-image})
+
+@mixin sprite($sprite)
+  @include sprite-image($sprite)
+  @include sprite-position($sprite)
+  @include sprite-width($sprite)
+  @include sprite-height($sprite)
+
+// The `sprites` mixin generates identical output to the CSS template
+//   but can be overridden inside of SASS
+//
+// @include sprites($spritesheet-sprites)
+@mixin sprites($sprites)
+  @each $sprite in $sprites
+    $sprite-name: nth($sprite, 10)
+    .#{$sprite-name}
+      @include sprite($sprite)

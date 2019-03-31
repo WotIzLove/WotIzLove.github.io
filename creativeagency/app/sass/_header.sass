@@ -1,0 +1,123 @@
+@import "smartgrid"
+@import "../sprites/sprite-social.sass"
+@import "../../node_modules/hamburger-icon/hamburger-icon"
+
+.main-page
+    background: $bck no-repeat
+    width: 100%
+    height: 100vh
+    background-size: cover
+    ::after
+        content: ""
+        width: 100%
+        position: absolute
+        heigth: 80vh
+        background: url("../imп/Grid.png") no-repeat center center
+        display: block
+        z-index: 3
+.main-header
+    height: 135px
+    width: 100%
+    border-bottom: 3px solid rgba(192,192,192, 0.3)
+    z-index: 10000
+.header
+    +row-flex()
+    flex-flow: row wrap
+    height: 135px
+    align-items: stretch
+    justify-content: space-between
+    align-items: center
+.logo
+    +col()
+    width: 85px
+    height: 80px
+    position: relative
+    &__block_blue
+        position: absolute
+        top: 0
+        left: 0
+        background: $blue
+        width: 75px
+        height: 70px
+        line-height: 70px
+        z-index: 1
+        text-align: center
+        vertical-align: middle
+    &__title
+        color: #fff
+        display: block
+        height: 100%
+        font-weight: bold
+        font-size: 28px
+    &__block_grey
+        position: absolute
+        margin: 10px
+        background: $grey-light
+        width: 75px
+        height: 70px
+        z-index: 0
+.menu
+    +col()
+    +row-flex()
+    flex-flow: row nowrap
+    align-items: center
+    white-space: nowrap
+    &__item
+        list-style: none
+        flex-shrink: 0
+    &__link
+        font-size: 20px
+        display: block
+        height: 130px
+        line-height: 130px
+        padding:  0px 20px
+        text-decoration: none
+        border-bottom: 5px solid transparent
+        transition: color .5s ease
+        &_active
+            border-bottom: 5px solid $blue
+        &:hover,
+            color: $blue
+.link
+    +row-flex()
+    +col()
+    justify-content: center
+    align-items: center
+    &__item
+        +col()
+        +size(3)
+        +size-md(5)
+        +size-xs(10)
+        cursor: pointer
+        margin:  10px
+        &_fb
+            @include sprite($i-icon-fb)
+        &_in
+            @include sprite($i-icon-in)
+        &_tw
+            @include sprite($i-icon-twiter)
+        &_sk
+            @include sprite($i-icon-s)
+.hamburger
+    display: none
+.hamburger-inner, .hamburger-inner::after, .hamburger-inner::before
+	border-radius: 0
+	color: #fff
+	width: 34px
+	height: 2px
+	background-color: #fff
+.mm-navbar
+        height: 50px
+        position: relative
+.mm-title
+        position: relative
+.mm-panels>.mm-panel>.mm-listview:first-child, .mm-panels>.mm-panel>.mm-navbar+.mm-listview
+    margin: 0
+    margin-top: 50px
+.mm-panel.mm-hasnavbar.mm-opened.mm-current
+    padding: 0
+.mm-listview>li:not(.mm-divider):after
+    position: absolute
+    width: 100%
+    left: 0
+    right: 0

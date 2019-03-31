@@ -1,0 +1,94 @@
+/*Import files*/
+
+@import "vars"
+@import "title"
+@import "libs"
+@import "informations"
+@import "header"
+@import "creatives"
+@import "features"
+@import "blog"
+@import "smartgrid"
+@import "advantages"
+@import "mobile"
+@import "team"
+@import "submit"
+@import "footer"
+@import "media"
+
+
+/*Specifications */
+
+@include reset()
+
+html 
+	overflow-x: hidden
+	overflow-y: scroll
+body
+	font-size: 100% 
+	font-size: 14px
+	min-width: 320px
+	position: relative
+	line-height: 1.65
+	font-family: $default-font
+	overflow-x: hidden
+	color: #fff
+	input, textarea, button, div, p, a, form 
+		outline: none 
+		box-sizing: border-box
+		&:focus:required:invalid
+			border-color: red
+		&:required:valid
+			border-color: green
+
+.img-responsive
+	display: block
+	max-width: 100%
+	height: auto
+	&.img-width
+		width: 100%
+
+.text-center
+	text-align: center
+
+b, strong
+	font-weight: bold
+
+a:hover
+	text-decoration: none
+	color: #fff
+a
+	color: #fff
+.button
+	color: #fff
+	text-decoration: none
+	background-color: $blue
+	text-transform: uppercase
+	border-radius: 2px
+	text-align: center
+	position: relative
+	outline: none
+	transition: background-color .1s ease
+	cursor: pointer
+	&::after
+		transition: background-color .2s ease
+		position: absolute
+		content: ''
+		height: 4px
+		bottom: 0
+		width: 100%
+		background-color: darken($blue, 50%)
+		opacity: .18
+		border-bottom-left-radius: 2px
+		border-bottom-right-radius: 2px
+		left: 0
+	&:focus, &:hover
+		text-decoration: none
+		color: #fff
+	&:hover
+		background-color: lighten($blue, 5%)
+		&::after
+			opacity: .22
+
+.wrapper
+	@include wrapper()

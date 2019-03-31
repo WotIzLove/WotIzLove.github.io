@@ -1,0 +1,56 @@
+@import "smartgrid"
+
+.informations
+    display: flex
+    flex-wrap: wrap
+    margin: 0
+    overflow-x: hidden
+    .information
+        +col()
+        +size(6)
+        +size-md(12)
+        padding-bottom: 10%  
+        width: 50%
+        &_fs
+            padding-left: 10%
+            color: #fff
+            background: $grey-dark
+        &_sc
+            padding-left: 5%
+            color: #000
+            background: $grey-light
+        &__title
+            text-transform: uppercase
+            text-align: left
+            font-size: 2.1em
+        &__description
+            padding-top: 5%
+            font-size: 1.0em 
+            width: 80%
+    .image
+        margin: 0
+        +col()
+        +size(6)
+        +size-md(12)
+        width: 50%
+        max-width: 100%
+        &_fs
+            background: $info-1
+            background-size: cover
+        &_sc
+            background: $info-2
+            background-size: cover
+.date
+    display: flex
+    padding-top: 10%
+    font-size: 0.8em
+    &__number
+        padding-right: 10px
+    &__line
+        width: 2px
+        color: black
+        height: 100%
+.informations .information
+    margin: 0
+.informations .image
+    margin: 0

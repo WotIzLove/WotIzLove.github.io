@@ -1,0 +1,22 @@
+.advantages-section
+    background: $blue
+.advantages
+    padding-top: 10%
+    +row-flex()
+    justify-content: space-between
+    +md(justify-content, center)
+    .advantage
+        +col()
+        +size(6)
+        +size-md(12)
+        display: flex
+        justify-content: space-between
+        margin-bottom: 10%
+        align-items: center
+        &__icon
+            @include sprite($i-write-big)
+            padding-left: 69px
+        &__description
+            padding-left: 30px
+            font-size: 1.0rem
+

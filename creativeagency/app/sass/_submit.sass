@@ -1,0 +1,61 @@
+.submit-section
+    background: $bck-submit
+    background-size: cover
+    padding-bottom: 5%
+.submit-forms
+    +row-flex()
+    &__item
+        +col()
+        +size(4)
+        +size-md(12)
+        background: none
+        border: 1px solid $grey
+        padding: 10px 20px
+        color: #fff
+        margin-bottom: 30px
+        &::-webkit-input-placeholder
+            color: $grey-light
+        &_focus
+            border: 1px solid $blue-light
+.submit-textarea
+    width: 100%
+    background: none
+    border: 1px solid $grey
+    padding: 10px 20px
+    color: #fff
+    margin-bottom: 10%
+    resize: none
+    &::-webkit-input-placeholder
+        color: $grey-light
+    &_focus
+        border: 1px solid $blue-light
+.submit-button
+    display: block
+    cursor: pointer
+    margin: 0 auto
+    text-transform: uppercase
+    font-weight: bold
+    font-size: 1.5em
+    color: #fff
+    background: $blue
+    padding: 20px 80px
+    border: none
+.success
+	display: none
+	position: absolute
+	top: 0
+	rigth: 0
+	bottom: 0
+	top: 0
+	text-transform: uppercase
+	font-weight: bold
+	z-index: 10
+	span
+		margin: auto 
+	& ~ *
+		transition: all .5s ease
+	&.active
+		& ~ *
+			opacity: .5
+			filter: blur(10px)
+

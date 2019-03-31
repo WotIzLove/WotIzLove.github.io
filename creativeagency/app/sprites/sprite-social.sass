@@ -1,0 +1,110 @@
+// SASS variables are information about icon's compiled state, stored under its original file name
+//
+// .icon-home
+//   width: $icon-home-width
+//
+// The large array-like variables contain all information about a single icon
+// $icon-home: x y offset_x offset_y width height total_width total_height image_path
+//
+// At the bottom of this section, we provide information about the spritesheet itself
+// $spritesheet: width height image $spritesheet-sprites
+$i-icon-fb-name: 'i-icon-fb'
+$i-icon-fb-x: 0px
+$i-icon-fb-y: 110px
+$i-icon-fb-offset-x: 0px
+$i-icon-fb-offset-y: -110px
+$i-icon-fb-width: 10px
+$i-icon-fb-height: 20px
+$i-icon-fb-total-width: 18px
+$i-icon-fb-total-height: 130px
+$i-icon-fb-image: '../sprites/sprite-social.png'
+$i-icon-fb: (0px, 110px, 0px, -110px, 10px, 20px, 18px, 130px, '../sprites/sprite-social.png', 'i-icon-fb', )
+$i-icon-in-name: 'i-icon_in'
+$i-icon-in-x: 0px
+$i-icon-in-y: 35px
+$i-icon-in-offset-x: 0px
+$i-icon-in-offset-y: -35px
+$i-icon-in-width: 18px
+$i-icon-in-height: 17px
+$i-icon-in-total-width: 18px
+$i-icon-in-total-height: 130px
+$i-icon-in-image: '../sprites/sprite-social.png'
+$i-icon-in: (0px, 35px, 0px, -35px, 18px, 17px, 18px, 130px, '../sprites/sprite-social.png', 'i-icon_in', )
+$i-icon-s-name: 'i-icon_s'
+$i-icon-s-x: 0px
+$i-icon-s-y: 72px
+$i-icon-s-offset-x: 0px
+$i-icon-s-offset-y: -72px
+$i-icon-s-width: 18px
+$i-icon-s-height: 18px
+$i-icon-s-total-width: 18px
+$i-icon-s-total-height: 130px
+$i-icon-s-image: '../sprites/sprite-social.png'
+$i-icon-s: (0px, 72px, 0px, -72px, 18px, 18px, 18px, 130px, '../sprites/sprite-social.png', 'i-icon_s', )
+$i-icon-twiter-name: 'i-icon_twiter'
+$i-icon-twiter-x: 0px
+$i-icon-twiter-y: 0px
+$i-icon-twiter-offset-x: 0px
+$i-icon-twiter-offset-y: 0px
+$i-icon-twiter-width: 18px
+$i-icon-twiter-height: 15px
+$i-icon-twiter-total-width: 18px
+$i-icon-twiter-total-height: 130px
+$i-icon-twiter-image: '../sprites/sprite-social.png'
+$i-icon-twiter: (0px, 0px, 0px, 0px, 18px, 15px, 18px, 130px, '../sprites/sprite-social.png', 'i-icon_twiter', )
+$spritesheet-width: 18px
+$spritesheet-height: 130px
+$spritesheet-image: '../sprites/sprite-social.png'
+$spritesheet-sprites: ($i-icon-fb, $i-icon-in, $i-icon-s, $i-icon-twiter, )
+$spritesheet: (18px, 130px, '../sprites/sprite-social.png', $spritesheet-sprites, )
+
+// The provided mixins are intended to be used with the array-like variables
+//
+// .icon-home
+//   @include sprite-width($icon-home)
+//
+// .icon-email
+//   @include sprite($icon-email)
+//
+// Example usage in HTML:
+//   `display: block` sprite:
+//   <div class="icon-home"></div>
+//
+// To change `display` (e.g. `display: inline-block;`), we suggest using a common CSS class:
+//   // CSS
+//   .icon {
+//     display: inline-block;
+//   }
+//
+//   // HTML
+//   <i class="icon icon-home"></i>
+@mixin sprite-width($sprite)
+  width: nth($sprite, 5)
+
+@mixin sprite-height($sprite)
+  height: nth($sprite, 6)
+
+@mixin sprite-position($sprite)
+  $sprite-offset-x: nth($sprite, 3)
+  $sprite-offset-y: nth($sprite, 4)
+  background-position: $sprite-offset-x  $sprite-offset-y
+
+@mixin sprite-image($sprite)
+  $sprite-image: nth($sprite, 9)
+  background-image: url(#{$sprite-image})
+
+@mixin sprite($sprite)
+  @include sprite-image($sprite)
+  @include sprite-position($sprite)
+  @include sprite-width($sprite)
+  @include sprite-height($sprite)
+
+// The `sprites` mixin generates identical output to the CSS template
+//   but can be overridden inside of SASS
+//
+// @include sprites($spritesheet-sprites)
+@mixin sprites($sprites)
+  @each $sprite in $sprites
+    $sprite-name: nth($sprite, 10)
+    .#{$sprite-name}
+      @include sprite($sprite)

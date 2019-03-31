@@ -1,0 +1,42 @@
+@import "../sprites/sprite-features.sass"
+
+.feature-section
+    text-align: center
+    background-color: $blue
+.features
+    +row-flex()
+    +md(justify-content, center)
+    padding-bottom: 10%
+.feature
+    +col()
+    +size(3)
+    +size-md(5)
+    +size-xs(10)
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    padding-bottom: 10%
+    &__icon
+        position: relative
+        padding: 50px
+        width: 133px
+        height: 133px
+        border-radius: 50%
+        background: $blue-light
+        &_fs
+              @include sprite($i-write)
+        &_sc
+             @include sprite($i-write)
+        &_th
+             @include sprite($i-search-and-thou-shall-find-)
+        &_fr
+             @include sprite($i-simon-says)
+    &__name
+        text-transform: uppercase
+        font-size: 18px
+        padding-top: 5%
+        font-weight: bold
+    &  h3
+        font-size: 15px
+        padding-top: 5%
