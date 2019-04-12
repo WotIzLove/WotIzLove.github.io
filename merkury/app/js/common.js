@@ -1,5 +1,7 @@
 $(function() {
 
+	$('.preloader').delay(1000).fadeOut('slow');
+
 	$('#my-menu').mmenu({
 		extensions: ['widescreen', 'theme-white', 'effect-menu-slide',  'pagedim-black'],
 		navbar:{
@@ -28,7 +30,4 @@ $(function() {
 		navText: ['<i class="fa fa-caret-left"></i>', '<i class="fa fa-caret-right"></i>']
 	});
 
-	$(window).on('load', function(){
-		$('.preloader').delay(1000).fadeOut('slow');
-	})
 });
