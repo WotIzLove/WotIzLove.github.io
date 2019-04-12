@@ -1,0 +1,99 @@
+// SASS variables are information about icon's compiled state, stored under its original file name
+//
+// .icon-home
+//   width: $icon-home-width
+//
+// The large array-like variables contain all information about a single icon
+// $icon-home: x y offset_x offset_y width height total_width total_height image_path
+//
+// At the bottom of this section, we provide information about the spritesheet itself
+// $spritesheet: width height image $spritesheet-sprites
+$i-analytics-name: 'i-analytics'
+$i-analytics-x: 0px
+$i-analytics-y: 196px
+$i-analytics-offset-x: 0px
+$i-analytics-offset-y: -196px
+$i-analytics-width: 92px
+$i-analytics-height: 88px
+$i-analytics-total-width: 92px
+$i-analytics-total-height: 284px
+$i-analytics-image: '../sprites/sprite.png'
+$i-analytics: (0px, 196px, 0px, -196px, 92px, 88px, 92px, 284px, '../sprites/sprite.png', 'i-analytics', )
+$i-manage-name: 'i-manage'
+$i-manage-x: 0px
+$i-manage-y: 0px
+$i-manage-offset-x: 0px
+$i-manage-offset-y: 0px
+$i-manage-width: 80px
+$i-manage-height: 88px
+$i-manage-total-width: 92px
+$i-manage-total-height: 284px
+$i-manage-image: '../sprites/sprite.png'
+$i-manage: (0px, 0px, 0px, 0px, 80px, 88px, 92px, 284px, '../sprites/sprite.png', 'i-manage', )
+$i-organaize-name: 'i-organaize'
+$i-organaize-x: 0px
+$i-organaize-y: 96px
+$i-organaize-offset-x: 0px
+$i-organaize-offset-y: -96px
+$i-organaize-width: 80px
+$i-organaize-height: 80px
+$i-organaize-total-width: 92px
+$i-organaize-total-height: 284px
+$i-organaize-image: '../sprites/sprite.png'
+$i-organaize: (0px, 96px, 0px, -96px, 80px, 88px, 92px, 284px, '../sprites/sprite.png', 'i-organaize', )
+$spritesheet-width: 92px
+$spritesheet-height: 284px
+$spritesheet-image: '../sprites/sprite.png'
+$spritesheet-sprites: ($i-analytics, $i-manage, $i-organaize, )
+$spritesheet: (92px, 284px, '../sprites/sprite.png', $spritesheet-sprites, )
+
+// The provided mixins are intended to be used with the array-like variables
+//
+// .icon-home
+//   @include sprite-width($icon-home)
+//
+// .icon-email
+//   @include sprite($icon-email)
+//
+// Example usage in HTML:
+//   `display: block` sprite:
+//   <div class="icon-home"></div>
+//
+// To change `display` (e.g. `display: inline-block;`), we suggest using a common CSS class:
+//   // CSS
+//   .icon {
+//     display: inline-block;
+//   }
+//
+//   // HTML
+//   <i class="icon icon-home"></i>
+@mixin sprite-width($sprite)
+  width: nth($sprite, 5)
+
+@mixin sprite-height($sprite)
+  height: nth($sprite, 6)
+
+@mixin sprite-position($sprite)
+  $sprite-offset-x: nth($sprite, 3)
+  $sprite-offset-y: nth($sprite, 4)
+  background-position: $sprite-offset-x  $sprite-offset-y
+
+@mixin sprite-image($sprite)
+  $sprite-image: nth($sprite, 9)
+  background-image: url(#{$sprite-image})
+
+@mixin sprite($sprite)
+  @include sprite-image($sprite)
+  @include sprite-position($sprite)
+  @include sprite-width($sprite)
+  @include sprite-height($sprite)
+
+// The `sprites` mixin generates identical output to the CSS template
+//   but can be overridden inside of SASS
+//
+// @include sprites($spritesheet-sprites)
+@mixin sprites($sprites)
+  @each $sprite in $sprites
+    $sprite-name: nth($sprite, 10)
+    .#{$sprite-name}
+      @include sprite($sprite)

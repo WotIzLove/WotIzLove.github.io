@@ -1,0 +1,131 @@
+.s-home
+    background-color: $purple
+    width: 100%
+    height: auto
+    background-size: cover
+    position: relative
+    z-index: 0
+    overflow: hidden
+.s-home::before
+    content: ""
+    width: 100%
+    position: absolute
+    height: 75%
+    background: url("../img/Grid.png") repeat center center
+    display: block
+    z-index: -1
+    top: 70px
+    right: 0
+    left: 0
+.s-home::after
+    content: ""
+    width: 100%
+    position: absolute
+    height: 700px
+    background: url(../img/Graph.png) repeat-x center center
+    display: block
+    z-index: -1
+    top: 120px
+    right: 0
+    left: 0
+.header
+    +row-flex()
+    align-items: center
+    padding: 5% 10%
+    &__logo
+        +col()
+        width: 15%
+        height: auto
+        cursor: pointer
+.menu
+    margin-left: auto
+    &__list
+        +col()
+        align-self: flex-end
+        text-align: center
+        z-index: 1000
+    &__item
+        display: inline-block
+        line-height: 40px
+    &__link
+        font-size: 18px
+        display: block
+        transition: color .5s ease, border .5s ease
+        padding: 10px 20px
+        &:hover
+            color: $accent
+.log
+    order: 0
+    line-height: 40px
+    border: 1px solid $accent
+    border-radius: 40px
+    opacity: 0.5
+    transition: opacity .5s ease
+    &__link
+        padding: 10px 40px
+        font-size: 18px
+        transition: color .5s ease
+        &:hover
+            color: $accent
+    &:hover
+        color: $accent
+        border: 1px solid $accent
+        opacity: 1
+.offer
+    text-align: center
+    &__title
+        font-size: 3vmax
+        font-weight: 100
+    &__text
+        font-size: 2vmax
+        font-weight: 400
+        color: $purple-opacity
+    &__image
+        width: 60%
+        margin: 0 auto
+.button
+    text-align: center
+    display: inline-block
+    font-size: 18px
+    font-weight: bold
+    background-color: $accent
+    cursor: pointer
+    margin: 0 auto
+    padding: 15px 60px
+    border-radius: 40px
+    margin: 3% auto
+    transition: background-color .1s ease
+    &:hover
+        background-color: darken($accent, 5%)
+.hamburger
+    +col()
+    position: relative
+    align-self: center
+    order: 1
+    display: none
+.hamburger-inner, .hamburger-inner::after, .hamburger-inner::before
+	border-radius: 0
+	color: $accent
+	width: 34px
+	height: 2px
+	background-color: $purple-opacity
+.img-2
+    background: #fff
+.mm-menu.mm-offcanvas
+    z-index: 1
+.mm-menu.mm-theme-white .mm-listview>li.mm-selected>a:not(.mm-next), .mm-menu.mm-theme-white .mm-listview>li.mm-selected>span
+    background: $accent
+    color: #fff
+.mm-panels>.mm-panel
+    padding: 0
+.mm-listview>li>a, .mm-listview>li>span
+    color: $purple-opacity
+    font-size: 20px
+    padding: 20px 40px
+.mm-menu.mm-theme-white .mm-navbar a, .mm-menu.mm-theme-white .mm-navbar>*, .mm-menu.mm-theme-white em.mm-counter
+    color: #fff
+    font-size: 25px
+.hamburger-box
+    display: block
+.mm-navbar 
+    background: $purple

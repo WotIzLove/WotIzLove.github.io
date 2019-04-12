@@ -758,7 +758,20 @@ ul {
 	.info {
 		width: 80%;
 	}
-}
+
+	.slider2__text{
+		font-size: 1.5em;
+	}
+	.slider2__text p{
+		font-size: 1rem;
+	}
+	.fa-chevron-circle-right:before{
+		display: none;
+	}
+
+	.fa-chevron-circle-left:before{
+		display: none;
+	}
 
 @media (max-width: 460px) {
 	.reviews {
