@@ -21,7 +21,7 @@
     &__name
         margin-bottom: 2%
     &__button
-        display: block
+        display: flex
         width: 60px
         height: 60px
         margin: 0 auto
@@ -29,3 +29,25 @@
         border-radius: 50%
         text-align: center
         line-height: 60px
+    &__icon
+        font-size: 20px
+
+
+.box 
+    height: 30px
+    align-self: flex-end
+    animation-duration: 2s
+    animation-iteration-count: infinite
+    margin: 0 auto 0 auto
+    transform-origin: bottom
+
+.bounce-2 
+    animation-name: bounce-2
+    animation-timing-function: ease
+@keyframes bounce-2 
+    0% 
+        transform: translateY(0)
+    50%
+        transform: translateY(-15px)
+    100%
+        transform: translateY(0)

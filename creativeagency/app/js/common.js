@@ -26,6 +26,7 @@ $(function (){
         }, 1000);
     });
 
+
     $(".submit-forms__item").on('focus', function(){
         $(".submit-textarea").removeClass("submit-textarea_focus");
         $(".submit-forms__item").removeClass("submit-forms__item_focus").filter(this).addClass("submit-forms__item_focus");
@@ -42,7 +43,8 @@ $(function (){
 
     $(".submit-textarea").on('blur', function(){
         $(".submit-textarea").removeClass("submit-textarea_focus");
-    });
+	});
+	
 
     $("form.submit-forms").submit(function() { 
 		var th = $(this);
@@ -60,6 +62,7 @@ $(function (){
 		});
 		return false;
 	});
+
 
 	$(window).on('load', function(){
 		$('.preloader').delay(1000).fadeOut('slow');
