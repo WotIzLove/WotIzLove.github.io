@@ -11,66 +11,7 @@ body {
 a {
 	text-decoration: none;
 }
-
-.preloader {
-    z-index: 1000;
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #fff;
-    text-align: center;
-}
     
-svg {
-    position: absolute;
-    margin: auto;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    animation: 2s linear infinite svg-animation;
-    max-width: 100px;
-}
-
-@keyframes svg-animation {
-0% {
-		transform: rotateZ(0deg);
-	}
-100% {
-		transform: rotateZ(360deg);
-	}
-}
-
-circle {
-    animation: 1.4s ease-in-out infinite both circle-animation;
-    display: block;
-    fill: transparent;
-    stroke: #29bc68;
-    stroke-linecap: round;
-    stroke-dasharray: 283;
-    stroke-dashoffset: 280;
-    stroke-width: 10px;
-		transform-origin: 50% 50%;
-}
-
-@keyframes circle-animation { 
-    0%,
-    25% {
-        stroke-dashoffset: 280;
-				transform: rotate(0); 
-			}
-    50%,
-    75% {
-        stroke-dashoffset: 75;
-				transform: rotate(45deg);
-			}
-    100% {
-        stroke-dashoffset: 280;
-				transform: rotate(360deg);
-			}
-		}
 /*ТАБЫ*/
 
 #tab1 {
