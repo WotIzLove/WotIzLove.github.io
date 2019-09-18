@@ -17,15 +17,14 @@ $(function (){
 	});
     $(".menu__link").on('click', function(){
         $(".menu__link").removeClass("menu__link_active").filter(this).addClass("menu__link_active");
-
-        var selector = $(this).attr('href');
-        var h = $(selector);
-
-        $('html, body').animate({
-            scrollTop: h.offset().top
-        }, 1000);
     });
 
+	var selector = $(this).attr('href');
+	var h = $(selector);
+
+	$('html, body').animate({
+		scrollTop: h.offset().top
+	}, 1000);
 
     $(".submit-forms__item").on('focus', function(){
         $(".submit-textarea").removeClass("submit-textarea_focus");
