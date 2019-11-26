@@ -1,0 +1,299 @@
+@import vars
+@import fonts
+@import libs
+
+::placeholder
+	color: #666
+
+::selection
+	background-color: $accent
+	color: #fff
+
+input, textarea
+	outline: none
+	&:focus:required:invalid
+		border-color: red
+	&:required:valid
+		border-color: green
+
+body
+	font-size: 14px
+	min-width: 320px
+	position: relative
+	line-height: 1.65
+	font-family: Oswald,Helvetica Neue,Arial,sans-serif
+	overflow-x: hidden
+	color: $text
+
+.img-responsive
+	display: block
+	max-width: 100%
+	height: auto
+
+.content
+	background-color: #050811
+	min-height: 100vh
+
+//header
+
+.header
+	position: relative
+	padding: 1% 2%
+.logo
+	font-size: 2rem
+	margin: 0
+	color: #fff
+.nav
+	margin: 0
+	margin-left: auto
+	&__list
+		list-style: none
+		margin: 0
+	&__item
+		cursor: pointer
+		margin-left: .3125rem
+		padding: .625rem .9375rem
+		text-transform: uppercase
+		transition: all .5s
+		font-size: 1.1rem
+		&:hover
+			color: $accent
+.social
+	margin-left: auto
+	&__list
+		list-style: none
+		margin: 0
+	&__link
+		cursor: pointer
+		display: block
+		text-align: center
+		padding: 5px
+		color: #fff
+		transition: all 0.5s
+		&:hover
+			color: $accent
+	&__icon
+		font-size: 20px !important 
+.search
+	margin-left: 15px
+	&__icon
+		z-index: 1000
+		cursor: pointer
+		color: #fff
+		font-size: 20px
+		transition: all 0.5s
+		&:hover
+			color: $accent
+		&_active
+			color: #000
+			position: relative
+	&:before
+		content: ''
+		width: 1px
+		height: 25px
+		margin-right: 10px
+		background: #787878
+		font-size: 24px
+	&__input
+		position: absolute
+		top: -100%
+		left: 1%
+		right: 0
+		width: 98%
+		height: 0%
+		opacity: 1
+		padding: 0 1%
+		transition: all .5s
+		&_active
+			top: 20%
+			height: 60%
+//main
+
+.main
+	background-color: #050811
+	position: relative
+.head-title
+	color: #fff
+	font-size: 2.5rem
+	font-weight: 400
+	line-height: 1.4
+	padding-left: 1.25rem
+	text-transform: uppercase
+	margin-bottom: 2%
+	&:after
+		position: absolute
+		top: 1.20rem
+		left: 0
+		width: .625rem
+		height: 2rem
+		content: ''
+		background: #787878
+	&_accent
+		&:after
+			background: $accent
+
+.mongo
+	padding-right: 2rem
+	&__link
+		color: #fff
+		text-decoration: none
+		font-size: 1.1rem
+		&:hover
+			text-decoration: none
+			color: $accent
+.sidebar
+	color: #fff
+	position: inherit
+	padding-left: 2.125rem
+	background: rgba(255,255,255,.15)
+	z-index: 300
+	overflow: hidden
+	min-width: 18rem
+	margin-top: .9375rem
+	margin-right: .9375rem
+	padding: .9375rem
+	padding-bottom: 1.5625rem
+	&__item
+		padding-top: 1.25rem
+		position: relative
+		margin-bottom: 1.25rem
+		&:first-child
+			padding-top: 0
+			&:after
+				display: none
+		&:after
+			position: absolute
+			top: 0
+			display: block
+			width: 100%
+			height: 1px
+			content: ''
+			border-bottom: .025rem solid rgba(255,255,255,.5)
+	&__label
+		display: block
+	&__header
+		display: none
+	&__title
+		text-transform: uppercase
+		margin-bottom: .3125rem
+	&__label
+		margin-bottom: .5rem
+	&__input
+		display: block
+		width: 100%
+		max-width: 43.75rem
+		height: 3.125rem
+		padding-left: .9375rem
+		color: $main
+		border: .15rem solid $main
+		background: #fff
+	&__genres
+		margin: 0
+		padding: 0
+		list-style: none
+	&__genre
+		position: relative
+		margin-left: 0
+		margin-bottom: .5rem
+	&__faux
+		position: relative
+		display: inline-block
+		width: .9375rem
+		height: .9375rem
+		margin-right: .4125rem
+		-webkit-transition: border .1s linear,background-color .1s linear
+		transition: border .1s linear,background-color .1s linear
+		vertical-align: middle
+		border: .05rem solid
+		border-radius: .125rem
+		border-color: rgba(255,255,255,.5)
+    	background: rgba(255,255,255,.15)
+		margin-bottom: 3px
+		&:after
+			position: absolute
+			top: 21%
+			right: 17%
+			display: inline-block
+			width: .5rem
+			height: .3rem
+			content: ''
+			-webkit-transition: opacity .1s linear
+			transition: opacity .1s linear
+			-webkit-transform: rotate(-45deg)
+			transform: rotate(-45deg)
+			border-bottom: .1rem solid
+			border-left: .1rem solid
+			opacity: 0
+	&__check
+		z-index: 1000
+		position: absolute
+		overflow: hidden
+		top: 6px
+		margin-left: 1px
+		padding: 0
+		opacity: 0
+		border: 0
+		&:checked + .sidebar__faux:after
+			opacity: 1
+	&__text
+		font-size: 1rem
+		text-transform: capitalize
+			
+		
+
+.grid
+	padding: .9375rem
+	background: $main
+	width: 100%
+.grid-title
+	font-size: 1.3rem
+	font-weight: 800
+	line-height: 1.3
+	margin-top: .9375rem
+	margin-bottom: .625rem
+	padding-bottom: 0
+.item
+	&__title
+		font-weight: 800
+		line-height: 1.3
+		margin-top: .9375rem
+		margin-bottom: .625rem
+		padding-bottom: 0
+		font-size: 1.3rem
+
+//about
+
+.about
+	&__poster
+		max-width: 90%
+	&__info
+		font-size: 1rem
+	&__links
+		padding: 1% 0
+	&__link
+		width: 50%
+		text-align: left
+		display: block
+		text-decoration: none
+		color: #fff
+		&:hover
+			text-decoration: none
+			color: $accent
+	&__title
+		text-transform: uppercase
+		font-style: normal
+		width: auto
+		font-family: Oswald,Helvetica Neue,Arial,sans-serif
+		font-size: 1.69rem
+		font-weight: 400
+		line-height: 1.3
+		margin: 0 0 0
+		color: inherit
+		margin-bottom: 1rem
+	&__date
+		text-transform: uppercase
+		margin-bottom: .3125rem
+	&__rate
+		margin-bottom: 1rem
+
+@import media

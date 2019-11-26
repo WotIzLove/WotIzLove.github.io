@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+
+	<meta charset="utf-8">
+
+	<title>Kinofind</title>
+	<meta name="description" content="кино фильмы сериалы">
+
+	<meta name="viewport" content="width=device-width">
+
+	<link rel="icon" href="img/favicon.png">
+	<meta property="og:image" content="img/@1x/preview.jpg">
+	
+  <link rel="stylesheet" href="css/styles.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css"/>
+
+</head>
+  <body class="content">
+    <header class="header">
+      <div class="container-fluid">
+        <div class="row d-flex align-items-center justify-content-between">
+            <h1 class="logo">Kinofind</h1>
+            <nav class="nav">
+              <ul class="nav__list d-flex">
+                <li class="nav__item nav__item_popular">Популярное</li>
+                <li class="nav__item nav__item_upcoming">Новинки</li>
+                <li class="nav__item nav__item_movie-top">Топ фильмы</li>
+                <li class="nav__item nav__item_tv-top">Топ сериалы</li>
+              </ul>
+            </nav>
+            <div class="social">
+                <ul class="social__list d-flex">
+                  <li class="social__item">
+                      <a class="social__link" href="#" target="_blank" title="Twitter"><i class="fa fa-twitter social__icon"></i></a>
+                  </li>
+                  <li class="social__item">
+                      <a class="social__link" href="#" target="_blank" title="Facebook"><i class="fa fa-facebook social__icon"></i></a>
+                  </li>
+                  <li class="social__item">
+                      <a class="social__link" href="#" target="_blank" title="Instagram"><i class="fa fa-instagram social__icon"></i></a>
+                  </li>
+                  <li class="social__item">
+                      <a class="social__link" href="#" target="_blank" title="VKontakte"><i class="fa fa-vk social__icon"></i></a>
+                  </li>
+                </ul>
+              </di>
+            </div>
+            <div class="search d-flex align-items-center">
+              <form class="search__form">
+                <div class="search__icon"><i class="fa fa-search"></i></div>
+              <input class="search__input" type="text" placeholder="Введите название фильма или сериала...">
+              </form>
+            </div>
+        </div>
+        </div>
+    </header>
+    <main class="main">
+      <div class="explorer">
+        <div class="explorer__header d-flex align-items-top justify-content-between">
+          <h2 class="head-title">Кино для всех</h2>
+          <div class="mongo">
+            <a class="mongo__link" href="https://www.themoviedb.org/?language=en-US">MovieDB</a></div>
+        </div>
+        <div class="explorer__warp d-flex">
+          <div class="sidebar">
+              <h3 class="sidebar__header">Поиск и фильтры</h3>
+              <div class="sidebar__filters">
+                <form id="search-form" class="sidebar__item">
+                  <h3 class="sidebar__title">Фильтры</h3>
+                  <label class="sidebar__label">Поиск по навзванию</label>
+                  <input id="searchText" class="sidebar__input" type="text">
+                </form>
+                <div class="sidebar__item">
+                  <h3 class="sidebar__title">Жанры</h3>
+                  <ul class="sidebar__genres">
+                  </ul>
+                </div>
+              </div>
+          </div>
+          <div class="grid container-fluid">
+            <div id="movies"class="row">
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script src="js/_custom.js"></script>
+  </body>
+</html>
