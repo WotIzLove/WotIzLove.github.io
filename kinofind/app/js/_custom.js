@@ -1,9 +1,46 @@
-  let searchForm = document.querySelector("#search-form");
+  let searchFormSidebar = document.querySelector("#search-form");
+  let searchFormHeader = document.querySelector('.search__form');
+  let searchFormHamburger = document.querySelector('.aside-search__form');
+  let movies;
+  let genres = document.querySelectorAll('.sidebar__genres');
+
+  let nav = document.querySelectorAll('.nav');
+
   let movie = document.querySelector("#movies");
   let urlPoster = "https://image.tmdb.org/t/p/w500";
   let explorer = document.querySelector(".explorer");
 
-  searchForm.addEventListener("submit", apiSearch);
+  let hamburger = document.querySelector(".button");
+  let aside = document.querySelector('.aside');
+  let hamburgerClose = document.querySelector('.aside-header__button');
+
+  hamburger.addEventListener('click', ()=> {
+    aside.classList.add('aside_active');
+  })
+
+  hamburgerClose.addEventListener('click', closeAside);
+
+  function closeAside() {
+    aside.classList.remove('aside_active');
+  } 
+  
+
+  let searchSidebar = document.querySelector("#searchText");
+  let searchHeader = document.querySelector(".search__input")
+  let searchHamburger = document.querySelector(".aside-search__input")
+
+  searchFormSidebar.addEventListener("submit", ()=> {
+    apiSearch(event, searchSidebar);
+  });
+
+  searchFormHeader.addEventListener("submit", ()=> {
+    apiSearch(event, searchHeader);
+  });
+
+  searchFormHamburger.addEventListener("submit", ()=> {
+    apiSearch(event, searchHamburger);
+  });
+
 
   let icon = document.querySelector(".search__icon");
   let search = document.querySelector(".search__input");
@@ -15,32 +52,101 @@
 
   search.addEventListener('blur', ()=> {
     icon.classList.remove("search__icon_active");
-    search.classList.remove("search__input_active")
+    search.classList.remove("search__input_active");
   })
 
-  let popular = document.querySelector(".nav__item_popular");
-  let upcoming = document.querySelector(".nav__item_upcoming");
-  let topMovies = document.querySelector(".nav__item_movie-top");
-  let topTv = document.querySelector(".nav__item_tv-top");
+  let popular = document.querySelectorAll(".nav__item_popular");
+  let upcoming = document.querySelectorAll(".nav__item_upcoming");
+  let topMovies = document.querySelectorAll(".nav__item_movie-top");
+  let topTv = document.querySelectorAll(".nav__item_tv-top");
 
-  console.log(upcoming);
-
-  popular.addEventListener('click', getPopular);
-  upcoming.addEventListener('click', getUpcoming);
-  topMovies.addEventListener('click', getTopMovies);
-  topTv.addEventListener('click', getTopTv);
+  let trendingKey = "https://api.themoviedb.org/3/trending/all/week?api_key=d1777f7d2dcd8568a3d1a207d0b05303&language=ru";
+  let upcomingKey = "https://api.themoviedb.org/3/movie/upcoming?api_key=d1777f7d2dcd8568a3d1a207d0b05303&language=ru&page=1";
+  let topMoviesKey = "https://api.themoviedb.org/3/movie/top_rated?api_key=d1777f7d2dcd8568a3d1a207d0b05303&language=ru&page=1";
+  let topTvKey = "https://api.themoviedb.org/3/tv/top_rated?api_key=d1777f7d2dcd8568a3d1a207d0b05303&language=ru&page=1";
 
   document.addEventListener("DOMContentLoaded", ()=> {
-    getPopular();
     getGenres();
+    getContent(trendingKey, "Популярное за неделю");
   });
 
+  popular.forEach((item)=>{
+    item.addEventListener('click', ()=>{
+      getContent(trendingKey, "Популярное за неделю");
+    });
+  })
 
+  upcoming.forEach((item)=>{
+    item.addEventListener('click', ()=>{
+      getContent(upcomingKey, "Новинки");
+    });
+  })
 
-  function apiSearch(e) {
+  topMovies.forEach((item)=>{
+    item.addEventListener('click', ()=>{
+      getContent(topMoviesKey, "Лучшие фильмы");
+    });
+  });
+
+  topTv.forEach((item)=>{
+    item.addEventListener('click', ()=>{
+      getContent(topTvKey, "Лучшие сериалы")
+    });
+  });
+
+  function getContent(typeKey, title) {
+      fetch(
+        typeKey
+      )
+        .then(function(value) {
+          if (value.status !== 200) {
+            return Promise.reject();
+          }
+          return value.json();
+        })
+        .then(function(output) {
+          let inner = `<h4 class="col-12 grid-title">${title}</h4>`;
+          if (output.results.length === 0) {
+            inner =
+              '<h2 class="col-12 text-center text-info">По вашему запросу ничего не найдено</h2>';
+          }
+          output.results.forEach(function(item) {
+            let nameItem = item.name || item.title;
+            let mediaType = item.title ? "movie" : "tv";
+            let poster = item.poster_path
+              ? urlPoster + item.poster_path
+              : "./img/noposter.png";
+            let date = item.first_air_date || item.release_date; 
+            newDate = date.split('-').join(' | ');
+            let dataInfo = `data-id="${item.id}" data-type="${mediaType}"`;
+            inner += `<div class="col-12 col-md-4 col-xl-3 item"  data-genre="${item.genre_ids}">
+          <img src="${poster}" class="item__poster img-responsive" alt="${nameItem}" ${dataInfo}>
+          <h5 class="item__title">${nameItem}</h5>
+          <h5 class="item__date">${newDate}</h5>
+          </div>`;
+          });
+  
+          movie.innerHTML = inner;
+  
+          addEventMedia();
+  
+          
+        })
+        .then(()=> {
+          movies = document.querySelectorAll('.item');
+        })
+        .catch(function(err) {
+          movie.innerHTML = "Упс, что-то пошло не так!";
+          console.log("error:" + err);
+        });
+
+        closeAside();
+  }
+
+  function apiSearch(e, search) {
     e.preventDefault();
-    let searchText = document.querySelector("#searchText").value;
-    if (searchText.trim().length === 0) {
+    let searchText = search.value.trim();
+    if (searchText.length === 0) {
       movie.innerHTML =
         '<h2 class="col-12 text-center text-danger">Поле поиска не должно быть пустым</h2>';
     }
@@ -68,13 +174,14 @@
             ? urlPoster + item.poster_path
             : "./img/noposter.png";
           let date = item.first_air_date || item.release_date;
+          let newDate = date.split('-').join(' | ');
           let dataInfo = "";
           if (item.media_type !== "person")
             dataInfo = `data-id="${item.id}" data-type="${item.media_type}"`;
-          inner += `<div class="col-12 col-md-4 col-xl-2 item  data-genre="${item.genre_ids}">
+          inner += `<div class="col-12 col-md-4 col-xl-3 item"  data-genre="${item.genre_ids}">
 				<img src="${poster}" class="item__poster img-responsive" alt="${nameItem}" ${dataInfo}>
         <h5 class="item__title">${nameItem}</h5>
-        <h4 class="item__date">${date}</h4>
+        <h4 class="item__date">${newDate}</h4>
         </div>`;
 
         });
@@ -83,11 +190,22 @@
 
         addEventMedia();
 
+      icon.classList.remove("search__icon_active");
+      search.classList.remove("search__input_active")
+
+      })
+      .then(()=> {
+        movies = document.querySelectorAll('.item');
+      })
+      .then(()=> {
+        render();
       })
       .catch(function(err) {
         movie.innerHTML = "Упс, что-то пошло не так!";
         console.log("error:" + err);
       });
+
+      closeAside();
   }
 
   function addEventMedia() {
@@ -123,11 +241,11 @@
         explorer.innerHTML = `<h4 class="col-12 text-center text-info head-title head-title_accent ">${output.name ||
           output.title}</h4>
       <div class="row about">
-          <div class="col-6 about__keyart">
+          <div class="col-md-6 col-sm-12 about__keyart">
           <img class="img-responsive about__poster" src='${urlPoster + output.poster_path}' alt="${output.name ||
               output.title}">
           </div>
-          <div class="col-6 about__info">
+          <div class="col-md-6 col-sm-12 about__info">
           <h3 class="about__title">${output.name || output.title}</h3>
           <p class="about__date">${output.first_air_date || output.release_date} ${'| ' + output.genres[0].name || ''}</p>
           <p class="about__rate">Рейтинг: ${output.vote_average}</p>
@@ -161,184 +279,14 @@
         movie.innerHTML = "Упс, что-то пошло не так!";
         console.log("error");
       });
+
+      icon.style.display = "none";
+      nav.forEach((item)=>{
+        item.style.display = "none";
+      })
+      hamburger.style.display = "none";
   }
 
-  function getPopular() {
-    fetch(
-      "https://api.themoviedb.org/3/trending/all/week?api_key=d1777f7d2dcd8568a3d1a207d0b05303&language=ru"
-    )
-      .then(function(value) {
-        if (value.status !== 200) {
-          return Promise.reject();
-        }
-        return value.json();
-      })
-      .then(function(output) {
-        let inner = `<h4 class="col-12 grid-title">Популярные за неделю</h4>`;
-        if (output.results.length === 0) {
-          inner =
-            '<h2 class="col-12 text-center text-info">По вашему запросу ничего не найдено</h2>';
-        }
-        output.results.forEach(function(item) {
-          let nameItem = item.name || item.title;
-          let mediaType = item.title ? "movie" : "tv";
-          let poster = item.poster_path
-            ? urlPoster + item.poster_path
-            : "./img/noposter.png";
-          let date = item.first_air_date || item.release_date; 
-          newDate = date.split('-').join(' | ');
-          let dataInfo = `data-id="${item.id}" data-type="${mediaType}"`;
-          inner += `<div class="col-12 col-md-4 col-xl-2 item"  data-genre="${item.genre_ids}">
-				<img src="${poster}" class="item__poster img-responsive" alt="${nameItem}" ${dataInfo}>
-        <h5 class="item__title">${nameItem}</h5>
-        <h5 class="item__date">${newDate}</h5>
-				</div>`;
-        });
-
-        movie.innerHTML = inner;
-
-        addEventMedia();
-
-        
-      })
-      .catch(function(err) {
-        movie.innerHTML = "Упс, что-то пошло не так!";
-        console.log("error:" + err);
-      });
-  };
-
-  function getUpcoming() {
-    fetch(
-      "https://api.themoviedb.org/3/movie/upcoming?api_key=d1777f7d2dcd8568a3d1a207d0b05303&language=ru&page=1"
-    )
-      .then(function(value) {
-        if (value.status !== 200) {
-          return Promise.reject();
-        }
-        return value.json();
-      })
-      .then(function(output) {
-        console.log(output);
-        let inner = `<h4 class="col-12 grid-title">Новинки</h4>`;
-        if (output.results.length === 0) {
-          inner =
-            '<h2 class="col-12 text-center text-info">По вашему запросу ничего не найдено</h2>';
-        }
-        output.results.forEach(function(item) {
-          let nameItem = item.name || item.title;
-          let mediaType = item.title ? "movie" : "tv";
-          let poster = item.poster_path
-            ? urlPoster + item.poster_path
-            : "./img/noposter.png";
-          let date = item.first_air_date || item.release_date; 
-          newDate = date.split('-').join(' | ');
-          let dataInfo = `data-id="${item.id}" data-type="${mediaType}"`;
-          inner += `<div class="col-12 col-md-4 col-xl-2 item"  data-genre="${item.genre_ids}">
-				<img src="${poster}" class="item__poster img-responsive" alt="${nameItem}" ${dataInfo}>
-        <h5 class="item__title">${nameItem}</h5>
-        <h5 class="item__date">${newDate}</h5>
-				</div>`;
-        });
-
-        movie.innerHTML = inner;
-
-        addEventMedia();
-        
-      })
-      .catch(function(err) {
-        movie.innerHTML = "Упс, что-то пошло не так!";
-        console.log("error:" + err);
-      });
-  };
-
-  function getTopMovies() {
-    fetch(
-      "https://api.themoviedb.org/3/movie/top_rated?api_key=d1777f7d2dcd8568a3d1a207d0b05303&language=ru&page=1"
-    )
-      .then(function(value) {
-        if (value.status !== 200) {
-          return Promise.reject();
-        }
-        return value.json();
-      })
-      .then(function(output) {
-        console.log(output);
-        let inner = `<h4 class="col-12 grid-title">Лучшие фильмы</h4>`;
-        if (output.results.length === 0) {
-          inner =
-            '<h2 class="col-12 text-center text-info">По вашему запросу ничего не найдено</h2>';
-        }
-        output.results.forEach(function(item) {
-          let nameItem = item.name || item.title;
-          let mediaType = item.title ? "movie" : "tv";
-          let poster = item.poster_path
-            ? urlPoster + item.poster_path
-            : "./img/noposter.png";
-          let date = item.first_air_date || item.release_date; 
-          newDate = date.split('-').join(' | ');
-          let dataInfo = `data-id="${item.id}" data-type="${mediaType}"`;
-          inner += `<div class="col-12 col-md-4 col-xl-2 item"  data-genre="${item.genre_ids}">
-				<img src="${poster}" class="item__poster img-responsive" alt="${nameItem}" ${dataInfo}>
-        <h5 class="item__title">${nameItem}</h5>
-        <h5 class="item__date">${newDate}</h5>
-				</div>`;
-        });
-
-        movie.innerHTML = inner;
-
-        addEventMedia();
-
-        
-      })
-      .catch(function(err) {
-        movie.innerHTML = "Упс, что-то пошло не так!";
-        console.log("error:" + err);
-      });
-  }
-
-  function getTopTv() {
-    fetch(
-      "https://api.themoviedb.org/3/tv/top_rated?api_key=d1777f7d2dcd8568a3d1a207d0b05303&language=ru&page=1"
-    )
-      .then(function(value) {
-        if (value.status !== 200) {
-          return Promise.reject();
-        }
-        return value.json();
-      })
-      .then(function(output) {
-        console.log(output);
-        let inner = `<h4 class="col-12 grid-title">Лучшие сериалы</h4>`;
-        if (output.results.length === 0) {
-          inner =
-            '<h2 class="col-12 text-center text-info">По вашему запросу ничего не найдено</h2>';
-        }
-        output.results.forEach(function(item) {
-          let nameItem = item.name || item.title;
-          let mediaType = item.title ? "movie" : "tv";
-          let poster = item.poster_path
-            ? urlPoster + item.poster_path
-            : "./img/noposter.png";
-          let date = item.first_air_date || item.release_date; 
-          newDate = date.split('-').join(' | ');
-          let dataInfo = `data-id="${item.id}" data-type="${mediaType}"`;
-          inner += `<div class="col-12 col-md-4 col-xl-2 item"  data-genre="${item.genre_ids}">
-				<img src="${poster}" class="item__poster img-responsive" alt="${nameItem}" ${dataInfo}>
-        <h5 class="item__title">${nameItem}</h5>
-        <h5 class="item__date">${newDate}</h5>
-				</div>`;
-        });
-
-        movie.innerHTML = inner;
-
-        addEventMedia();
-        
-      })
-      .catch(function(err) {
-        movie.innerHTML = "Упс, что-то пошло не так!";
-        console.log("error:" + err);
-      });
-  }
 
   function getVideo(type, id) {
     let youtube = document.querySelector('.youtube');
@@ -362,8 +310,7 @@
   }
 
   function getGenres() {
-    let genres = document.querySelector('.sidebar__genres');
-
+    
     fetch('https://api.themoviedb.org/3/genre/movie/list?api_key=d1777f7d2dcd8568a3d1a207d0b05303&language=ru')
     .then((value) => {
       if (value.status !== 200) {
@@ -372,40 +319,48 @@
       return value.json();
     })
     .then((output) => {
-      output.genres.forEach((item) => {
-        genres.innerHTML += `<li class="sidebar__genre"><input type="checkbox" class="sidebar__check" data-id="${item.id}"><span class="sidebar__faux"></span><span class="sidebar__text">${item.name}</span></li>`;
-        sortByGenres();
+      genres.forEach(genre => {
+        output.genres.forEach((item) => {
+          genre.innerHTML += `<li class="genres__item sidebar__genre"><input type="checkbox" class="sidebar__check" data-id="${item.id}"><span class="genres__faux sidebar__faux"></span><span class="genres__text sidebar__text">${item.name}</span></li>`;
+        })
       })
-      .catch(function(err) {
-        youtube.innerHTML = " ";
-        console.log("error:" + err);
-      });
+    })
+    .then(()=> {
+      render();
+    })
+    .catch(function(err) {
+      movie.innerHTML = " ";
+      console.log("error:" + err);
     });
   }
 
-function sortByGenres() {
-
-  let checkbox = document.querySelectorAll('input.sidebar__check');
-  let movies = document.querySelectorAll('.item');
-
-  checkbox.forEach((item) => {
-    item.addEventListener('click', () => {
-      let genreId =  item.getAttribute("data-id");
-      movies.forEach((elem) => {
-        let genreMovies = elem.getAttribute("data-genre").split(',');
-        if(item.checked) {
-          if(genreMovies.indexOf(genreId) != -1) {
-            elem.style.display = "";
-          }
-          else {
-            elem.style.display = "none"
-          }
-        }
-        else {
-          elem.style.display = "block";
-        }
+  function render() {
+    let checkbox = document.querySelectorAll('input.sidebar__check');
+    let genresArray = [];
+    checkbox.forEach(item => {
+      item.addEventListener('click', ()=> {
+        let genreId = item.getAttribute("data-id");
+        sortByGenres(genreId, movies, genresArray);
       })
     })
+  }
+
+function sortByGenres(genre, movies, array) {
+  movies.forEach((item, index) => {
+    let tempArray = item.getAttribute('data-genre').split(',');
+    for(let i=0; i<tempArray.length; i++){
+      if(tempArray[i] !== genre) {
+        item.style.display = 'none';
+        array.splice(index, 1);
+        break;
+      } else {
+        array.push(item);
+        break;
+      }
+    }
+  })
+  array.forEach(item => {
+    item.style.display = 'block';
   })
 }
   

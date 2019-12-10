@@ -21,10 +21,56 @@
     <header class="header">
       <div class="container-fluid">
         <div class="row d-flex align-items-center justify-content-between">
+            <div class="button">
+              <div class="button__row"></div>
+              <div class="button__row"></div>
+              <div class="button__row"></div>
+            </div>
+            <div class="aside">
+              <div class="aside-header">
+                  <h2 class="aside-header__title" >Kinofind</h2>
+                  <button class="aside-header__button">
+                    <i class="aside-header__icon fa fa-times-thin fa-2x"></i>
+                  </button>
+              </div>
+              <div class="aside-search">
+                <form class="aside-search__form">
+                  <input class="aside-search__input" type="text" placeholder="Что вы ищете?">
+                  <button type="submit" class="aside-search__button"><i class="aside-search__icon fa fa-search"></i></button>
+                </form>
+              </div>
+              <nav class="nav">
+                <ul class="nav__list nav__list_aside d-flex">
+                  <li class="nav__item nav__item_aside nav__item_popular">Популярное</li>
+                  <li class="nav__item nav__item_aside nav__item_upcoming">Новинки</li>
+                  <li class="nav__item nav__item_aside nav__item_movie-top">Топ фильмы</li>
+                  <li class="nav__item nav__item_aside nav__item_tv-top">Топ сериалы</li>
+                </ul>
+              </nav>
+              <ul class="genres genres_aside sidebar__genres">
+              </ul>
+              <div class="social">
+                  <ul class="social__list social__list_aside d-flex">
+                    <li class="social__item">
+                        <a class="social__link" href="#" target="_blank" title="Twitter"><i class="fa fa-twitter social__icon social__icon"></i></a>
+                    </li>
+                    <li class="social__item">
+                        <a class="social__linke" href="#" target="_blank" title="Facebook"><i class="fa fa-facebook social__icon"></i></a>
+                    </li>
+                    <li class="social__item">
+                        <a class="social__link" href="#" target="_blank" title="Instagram"><i class="fa fa-instagram social__icon"></i></a>
+                    </li>
+                    <li class="social__item">
+                        <a class="social__link" href="#" target="_blank" title="VKontakte"><i class="fa fa-vk social__icon"></i></a>
+                    </li>
+                  </ul>
+                </di>
+              </div>
+          </div>
             <h1 class="logo">Kinofind</h1>
             <nav class="nav">
               <ul class="nav__list d-flex">
-                <li class="nav__item nav__item_popular">Популярное</li>
+                <li class="nav__item nav__item nav__item_popular">Популярное</li>
                 <li class="nav__item nav__item_upcoming">Новинки</li>
                 <li class="nav__item nav__item_movie-top">Топ фильмы</li>
                 <li class="nav__item nav__item_tv-top">Топ сериалы</li>
@@ -50,7 +96,7 @@
             <div class="search d-flex align-items-center">
               <form class="search__form">
                 <div class="search__icon"><i class="fa fa-search"></i></div>
-              <input class="search__input" type="text" placeholder="Введите название фильма или сериала...">
+                <input class="search__input" type="text" placeholder="Введите название фильма или сериала...">
               </form>
             </div>
         </div>
@@ -86,6 +132,6 @@
         </div>
       </div>
     </main>
-    <script src="js/scripts.min.js"></script>
+    <script src="js/_custom.js"></script>
   </body>
 </html>
